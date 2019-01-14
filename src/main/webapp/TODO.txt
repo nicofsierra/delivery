@@ -1,0 +1,8 @@
+TODO
+
+1 hacer abm productos
+1.2 Ver ingreso de usuario
+1.3 Ver volver a alta productos desde ver todos
+2 ver impresion comandas
+
+Preguntar a guille para que se usa campo observaciones

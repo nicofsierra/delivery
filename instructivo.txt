@@ -1,0 +1,30 @@
+1 - crear carpeta c:\java
+2 - copiar carpeta delivery dentro de java
+3 - copiar desde c:\java\delivery archivo apache-tomcat-8.5.20-windows-x64.zip a c:\java y extraer
+4 - copiar desde c:\java\delivery\delivery-1.0.0.war a c:\java\apache-tomcat-8.5.20\webapps\
+5 - copiar star-tomcat y stop-tomcar a escritorio
+6 - ejecutar archivo mysql-installer
+7 - Ir a Custom y seleccionar solamente mysql 5.7 Server e instalar en contraseña poner CICLON
+8 - copiar desde c:\java\delivery\jre8 a c:\java
+9 - Equipo → Propiedades → Configuracion Avanzada del Sistema → Variables de Entorno
+	Una vez dentro de la ventana de “Variables de Entorno” seleccionamos en crear una nueva,
+	y de “Nombre de la Variable” ponemos JAVA_HOME, mientras que de “Valor de la Variable”
+	ponemos la ruta en donde tenemos nuestra carpeta del JDK de java, en mi caso es en:
+	C:\java\jre8
+	Luego de crear la variable, hay que modificar la ya existente variable PATH. La
+	seleccionamos y pulsamos “Editar”, luego dentro de la ventana del PATH seleccionamos
+	“Editar Texto” y agregamos lo siguiente: “%JAVA_HOME%\bin”, es decir, se pone la
+	dirección que está dentro de la variable de entorno JAVA_HOME apuntando a su carpeta
+	bin. NOTA: No olviden agregar un “;” antes para separarla de anterior dirección, es decir:
+	“;%JAVA_HOME%\bin”
+10 - la dirección es http://localhost:8080/delivery-1.0.0/
+11 - Configuracion mysql
+	ejecutar mysql command line
+	contraseña: ciclon
+	mysql> create database deliveryDb;
+	mysql> use deliveryDb;
+	mysql> INSERT INTO Usuario (adm,nombre,pass) VALUES (true,'avanzado','1234');
+	
+Listo arrancar el el tomcat con star-tomcat
+
+

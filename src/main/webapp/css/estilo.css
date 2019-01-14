@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+#icono-grande{
+	font-size: 100px;
+	color: #3465a4;
+}
+
+.icon-center{
+	margin-left: 33%;
+}
+	
+#boton{
+	padding-top: 2%;
+}
+
+.recuadro{
+	margin: 3%;
+}
+
+#prodCant{
+	margin:5%;
+}
+
+h6{
+	color: red;
+}
+
+h1{
+	color: #3465a4;
+}
+
+.alineado-centro{
+	margin-left: 45%;
+	margin-top: 3%;
+}
+
+.cliente-cargado{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+.total{
+	font-size: 24px;
+	font-weight: bold;
+}
