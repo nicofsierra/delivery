@@ -71,6 +71,8 @@
 			<div class="alineado-centro">
 				<a href="finalizar-pedido?clienteId=${cliente.telefono}"><button
 						class="btn btn-primary">Finalizar</button></a>
+					<a href="cancelar-pedido"><button
+						class="btn btn-primary" onClick="return confirmarCancelar();">Cancelar Pedido</button></a>
 			</div>
 		</section>
 		<div class="error">

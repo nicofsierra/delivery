@@ -69,13 +69,20 @@
 						<button class="btn btn-primary" type="submit">Imprimir
 							Comanda</button>
 					</div>
+				</div>
+					</form>
+				<div class="row">
 					<div class="col-md-4 text-center">
 						<a
 							href="volver-preparar-pedido?clienteId=${cliente.telefono}&pedidoId=${pedido.id}"><button
 								class="btn btn-primary">Volver</button></a>
 					</div>
+					<div class="col-md-4 text-center">
+						<a href="cancelar-pedido"><button class="btn btn-primary"
+								onClick="return confirmarCancelar();">Cancelar Pedido</button></a>
+					</div>
 				</div>
-			</form>
+			
 
 
 		</section>

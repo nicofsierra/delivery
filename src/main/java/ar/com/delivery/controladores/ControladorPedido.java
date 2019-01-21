@@ -108,32 +108,44 @@ public class ControladorPedido {
 	}
 
 	@RequestMapping("imprimir-comanda")
-	public ModelAndView imprimeComanda(@RequestParam("clienteId") String clienteId,
-										@RequestParam("pedidoId") String id, 
-										@RequestParam("vuelto") String vuelto,
-										@RequestParam("obs") String observac, HttpServletRequest request,
+	public ModelAndView imprimeComanda(@RequestParam("clienteId") String clienteId, @RequestParam("pedidoId") String id,
+			@RequestParam("vuelto") String vuelto, @RequestParam("obs") String observac, HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelMap modelo = new ModelMap();
 		Float verVuelto = 0F;
 		modelo.put("detalles", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
-			modelo.put("cliente", request.getSession().getAttribute("cliente"));
-			modelo.put("cliente", servicioCliente.buscarCliente(Long.parseLong(clienteId)));
+		modelo.put("cliente", request.getSession().getAttribute("cliente"));
+		modelo.put("cliente", servicioCliente.buscarCliente(Long.parseLong(clienteId)));
+		modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
+		if (vuelto.isEmpty() ) {
+			modelo.put("error", "Debe ingresar un importe en vuelto");
+			modelo.put("pedidosProductos", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
 			modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
-			verVuelto = Float.parseFloat(vuelto)-servicioPedido.buscarPedido(Long.parseLong(id)).getPrecio();
-			if( verVuelto<0 ){
-				modelo.put("error", "El vuelto no puede ser menor a 0");
+			return new ModelAndView("finalizar-pedido", modelo);
+		}else{
+			try {
+				verVuelto = Float.parseFloat(vuelto) - servicioPedido.buscarPedido(Long.parseLong(id)).getPrecio();
+			}catch(Exception e){
+				modelo.put("error", "El vuelto DEBE SER UN NUMERO");
 				modelo.put("pedidosProductos", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
 				modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
-				return new ModelAndView("finalizar-pedido",modelo);
-			}else{
+				return new ModelAndView("finalizar-pedido", modelo);
+			}
+		}
+		if (verVuelto < 0) {
+			modelo.put("error", "El vuelto no puede ser menor a 0");
+			modelo.put("pedidosProductos", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
+			modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
+			return new ModelAndView("finalizar-pedido", modelo);
+		} else {
 			modelo.put("vuelto", verVuelto);
 			servicioImpresion.imprimirComanda(servicioPedido.buscarTodosLosTemporalesProductosCantidad(),
-											  servicioPedido.buscarPedido(Long.parseLong(id)),
-											  servicioCliente.buscarCliente(Long.parseLong(clienteId)),Float.parseFloat(vuelto),
-											  verVuelto,observac);
-			return new ModelAndView("confirma-comanda",modelo);
-			}
-		
+					servicioPedido.buscarPedido(Long.parseLong(id)),
+					servicioCliente.buscarCliente(Long.parseLong(clienteId)), Float.parseFloat(vuelto), verVuelto,
+					observac);
+			return new ModelAndView("confirma-comanda", modelo);
+		}
+
 	}
 
 	@RequestMapping("volver-preparar-pedido")
@@ -155,6 +167,13 @@ public class ControladorPedido {
 		servicioPedido.eliminarProductoCantidad(Long.parseLong(pCantId));
 		modelo.put("productoCantidad", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
 		return new ModelAndView("preparar-pedido", modelo);
+	}
+
+	@RequestMapping("cancelar-pedido")
+	public ModelAndView cancelarPedido(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().removeAttribute("cliente");
+		servicioPedido.eliminarProductoCantidad();
+		return new ModelAndView("ver-cliente");
 	}
 
 }
