@@ -142,12 +142,22 @@ public class ControladorPedido {
 			modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
 			return new ModelAndView("finalizar-pedido", modelo);
 		} else {
+			Pedido pedidoActualizaVuelto = servicioPedido.buscarPedido(Long.parseLong(id));
+			pedidoActualizaVuelto.setPagaCon(Float.parseFloat(vuelto));
+			pedidoActualizaVuelto.setVuelto(verVuelto);
+			if( !servicioPedido.actualizarPedidoVuelto(pedidoActualizaVuelto)){
+				modelo.put("error", "Algo salio mal!!");
+				modelo.put("pedidosProductos", servicioPedido.buscarTodosLosTemporalesProductosCantidad());
+				modelo.put("pedido", servicioPedido.buscarPedido(Long.parseLong(id)));
+				return new ModelAndView("finalizar-pedido", modelo);
+			}else{
 			modelo.put("vuelto", verVuelto);
 			servicioImpresion.imprimirComanda(servicioPedido.buscarTodosLosTemporalesProductosCantidad(),
 					servicioPedido.buscarPedido(Long.parseLong(id)),
-					servicioCliente.buscarCliente(Long.parseLong(clienteId)), Float.parseFloat(vuelto), verVuelto,
+					servicioCliente.buscarCliente(Long.parseLong(clienteId)), 
 					observac);
 			return new ModelAndView("confirma-comanda", modelo);
+			}
 		}
 
 	}
@@ -228,7 +238,7 @@ public class ControladorPedido {
 		Cliente cliente = servicioCliente.buscarCliente(pedido.getCliente().getTelefono());
 		List<ProductoCantidad> productoCantidad = new ArrayList<>();
 		productoCantidad = servicioPedido.buscarPedidoProductoPorIdPedido(id);
-		servicioImpresion.imprimirComanda(productoCantidad,pedido,cliente,0F,0F,"");
+		servicioImpresion.imprimirComanda(productoCantidad,pedido,cliente,"");
 		return new ModelAndView("index");
 	}
 

@@ -25,5 +25,6 @@ public interface PedidoDao {
 	public Boolean eliminarProductoCantidad(Long id);
 	public List<PedidoClienteDTO> buscarTodosLosPedidosDelDia(Date desde,Date hasta);
 	public List<ProductoCantidad> buscarPedidoProductoPorIdPedido(Long id);
+	public Boolean actualizarPedidoVuelto(Pedido pedido);
 	
 }

@@ -26,7 +26,7 @@ public class ServicioImpresionImpl implements ServicioImpresion {
 	private ServicioPedido servicioPedido;
 	
 	public Boolean imprimirComanda(List<ProductoCantidad> productoCantidad, Pedido pedido, Cliente cliente,
-			Float pagaCon,Float vuelto, String obs) {
+			 String obs) {
 
 		// HashDocAttributeSet docAttr=new HashDocAttributeSet();
 		// HashPrintRequestAttributeSet reqAttr=new
@@ -70,8 +70,8 @@ public class ServicioImpresionImpl implements ServicioImpresion {
 			content.append("--------"+ "        --------" + "  ------------");
 			content.append(lista + "\r\n\r\n");
 			content.append("TOTAL:               " + pedido.getPrecio() + "\r\n");
-			content.append("PAGA CON:            " + pagaCon.toString()+ "\r\n");
-			content.append("VUELTO:              " + vuelto.toString() +"\r\n");
+			content.append("PAGA CON:            " + pedido.getPagaCon().toString()+ "\r\n");
+			content.append("VUELTO:              " + pedido.getVuelto().toString() +"\r\n");
 			
 			InputStream inputStream = new ByteArrayInputStream(String.valueOf(content).getBytes("UTF-8"));
 			

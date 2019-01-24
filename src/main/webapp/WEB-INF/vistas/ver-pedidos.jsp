@@ -33,7 +33,7 @@
 				</tbody>
 			</table>
 			<div class="alineado-centro">
-				<a href="index"><button class="btn btn-primary"></button></a>
+				<a href="index"><button class="btn btn-primary">Volver</button></a>
 			</div>
 		</section>
 		<div class="error">

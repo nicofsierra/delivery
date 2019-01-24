@@ -77,5 +77,9 @@ public class ServicioPedidoImpl implements ServicioPedido{
 	public List<ProductoCantidad> buscarPedidoProductoPorIdPedido(Long id){
 		return pedidoDao.buscarPedidoProductoPorIdPedido(id);
 	}
+	
+	public Boolean actualizarPedidoVuelto(Pedido pedido){
+		return pedidoDao.actualizarPedidoVuelto(pedido);
+	}
 
 }

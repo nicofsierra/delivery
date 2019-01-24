@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.hibernate.JDBCException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -179,4 +180,16 @@ public class PedidoDaoImpl implements PedidoDao{
 				.setResultTransformer(Transformers.aliasToBean(ProductoCantidad.class))
 				.list();
 	}
+	
+	@Override
+	public Boolean actualizarPedidoVuelto(Pedido pedido){
+		final Session session = sessionFactory.getCurrentSession();
+		try{
+			session.saveOrUpdate(pedido);
+			return true;
+		}catch(JDBCException e){
+			return false;
+		}
+	}
+	
 }

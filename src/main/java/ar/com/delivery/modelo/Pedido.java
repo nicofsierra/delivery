@@ -23,6 +23,10 @@ public class Pedido {
 	
 	private Float precio;
 	
+	private Float pagaCon;
+	
+	private Float vuelto;
+	
 	@ManyToOne
 	@JoinColumn(name="cliente")
 	private Cliente cliente ;
@@ -31,13 +35,15 @@ public class Pedido {
 	
 	public Pedido(){}
 
-	public Pedido(Long id, Date fecha, Cliente cliente, List<PedidoProducto> pedidoProducto, Float precio) {
+	public Pedido(Long id, Date fecha, Cliente cliente, List<PedidoProducto> pedidoProducto, Float precio, Float pagaCon, Float vuelto) {
 		super();
 		this.id = id;
 		this.fecha = fecha;
 		this.cliente = cliente;
 		this.pedidoProducto = pedidoProducto;
 		this.precio = precio;
+		this.pagaCon = pagaCon;
+		this.vuelto = vuelto;
 	}
 
 	public Float getPrecio() {
@@ -62,6 +68,22 @@ public class Pedido {
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
+	}
+
+	public Float getPagaCon() {
+		return pagaCon;
+	}
+
+	public void setPagaCon(Float pagaCon) {
+		this.pagaCon = pagaCon;
+	}
+
+	public Float getVuelto() {
+		return vuelto;
+	}
+
+	public void setVuelto(Float vuelto) {
+		this.vuelto = vuelto;
 	}
 
 	public Cliente getCliente() {

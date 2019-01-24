@@ -8,6 +8,6 @@ import ar.com.delivery.modelo.ProductoCantidad;
 
 public interface ServicioImpresion {
 	
-	public Boolean imprimirComanda(List<ProductoCantidad> productoCantidad,Pedido pedido,Cliente cliente,Float pagaCon, Float vuelto,String obs);
+	public Boolean imprimirComanda(List<ProductoCantidad> productoCantidad,Pedido pedido,Cliente cliente,String obs);
 
 }
