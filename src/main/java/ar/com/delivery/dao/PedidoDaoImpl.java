@@ -1,5 +1,6 @@
 package ar.com.delivery.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,9 +9,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
 import org.springframework.stereotype.Service;
 
 import ar.com.delivery.modelo.Pedido;
+import ar.com.delivery.modelo.PedidoClienteDTO;
 import ar.com.delivery.modelo.PedidoProducto;
 import ar.com.delivery.modelo.Producto;
 import ar.com.delivery.modelo.ProductoCantidad;
@@ -139,5 +142,41 @@ public class PedidoDaoImpl implements PedidoDao{
 			return false;
 		}
 	}
-
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<PedidoClienteDTO> buscarTodosLosPedidosDelDia(Date desde,Date hasta){
+		final Session session = sessionFactory.getCurrentSession();
+		return (List<PedidoClienteDTO>) session.createCriteria(Pedido.class,"p")
+				.createAlias("cliente", "c")
+				.setProjection(Projections.projectionList()
+						.add(Projections.property("p.id"),"idPedido")
+						.add(Projections.property("c.telefono"),"telefono")
+						.add(Projections.property("c.nombre"),"nombre")
+						.add(Projections.property("c.calle"),"domicilio")
+						.add(Projections.property("c.localidad"),"localidad")
+						.add(Projections.property("p.fecha"),"fecha")
+						.add(Projections.property("p.precio"),"importe") )
+				.add(Restrictions.ge("p.fecha",desde))
+				.add(Restrictions.le("p.fecha", hasta))
+				.setResultTransformer(Transformers.aliasToBean(PedidoClienteDTO.class))
+				.list();
+	}
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<ProductoCantidad> buscarPedidoProductoPorIdPedido(Long id){
+		final Session session = sessionFactory.getCurrentSession();
+		return (List<ProductoCantidad>) session.createCriteria(PedidoProducto.class,"pP")
+				.createAlias("producto", "prod")
+				.createAlias("pedido", "ped")
+				.setProjection(Projections.projectionList()
+				.add(Projections.property("prod.id"),"productoId")
+				.add(Projections.property("prod.nombre"),"nombre")
+				.add(Projections.property("pP.cantidad"),"cantidad")
+				.add(Projections.property("pP.precio"),"precio") )
+				.add(Restrictions.eq("ped.id", id))
+				.setResultTransformer(Transformers.aliasToBean(ProductoCantidad.class))
+				.list();
+	}
 }

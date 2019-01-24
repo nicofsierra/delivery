@@ -25,6 +25,9 @@
 			<div class="alineado-centro">
 				<a href="index"><button class="btn btn-primary">Volver</button></a>
 			</div>
+			<div class="alineado-centro">
+				<a href="ver-pedidos"><button class="btn btn-primary">Ver Pedidos</button></a>
+			</div>
 			<div class="error">
 				<h6>${error }</h6>
 			</div>

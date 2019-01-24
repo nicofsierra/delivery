@@ -21,6 +21,7 @@
 						<a href="alta-productos"><span class="titulo"><h3>Productos</h3></span></a>
 					</div>
 				</div>
+				</div>
 			</div>
 			
 		</section>

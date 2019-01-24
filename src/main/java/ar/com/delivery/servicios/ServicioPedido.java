@@ -1,8 +1,10 @@
 package ar.com.delivery.servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import ar.com.delivery.modelo.Pedido;
+import ar.com.delivery.modelo.PedidoClienteDTO;
 import ar.com.delivery.modelo.PedidoProducto;
 import ar.com.delivery.modelo.Producto;
 import ar.com.delivery.modelo.ProductoCantidad;
@@ -21,5 +23,7 @@ public interface ServicioPedido {
 	public Boolean eliminarPedido(Pedido pedido);
 	public Boolean eliminarPedidoProducto(Pedido pedido);
 	public Boolean eliminarProductoCantidad(Long id);
+	public List<PedidoClienteDTO> buscarTodosLosPedidosDelDia(Date desde,Date hasta);
+	public List<ProductoCantidad> buscarPedidoProductoPorIdPedido(Long id);
 	
 }

@@ -1,5 +1,6 @@
 package ar.com.delivery.servicios;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.com.delivery.dao.PedidoDao;
 import ar.com.delivery.modelo.Pedido;
+import ar.com.delivery.modelo.PedidoClienteDTO;
 import ar.com.delivery.modelo.PedidoProducto;
 import ar.com.delivery.modelo.Producto;
 import ar.com.delivery.modelo.ProductoCantidad;
@@ -66,6 +68,14 @@ public class ServicioPedidoImpl implements ServicioPedido{
 	
 	public Boolean eliminarProductoCantidad(Long id){
 		return pedidoDao.eliminarProductoCantidad(id);
+	}
+	
+	public List<PedidoClienteDTO> buscarTodosLosPedidosDelDia(Date desde,Date hasta ){
+		return pedidoDao.buscarTodosLosPedidosDelDia(desde,hasta);
+	}
+	
+	public List<ProductoCantidad> buscarPedidoProductoPorIdPedido(Long id){
+		return pedidoDao.buscarPedidoProductoPorIdPedido(id);
 	}
 
 }
